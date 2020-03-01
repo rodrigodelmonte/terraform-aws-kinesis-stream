@@ -6,16 +6,19 @@ variable "name" {
 variable "shard_count" {
   description = "The number of shards that the stream will use"
   type        = number
+  default     = 1
 }
 
 variable "retention_period" {
   description = "Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24."
   type        = number
+  default     = 24
 }
 
 variable "shard_level_metrics" {
   description = "A list of shard-level CloudWatch metrics which can be enabled for the stream."
   type        = list(string)
+  default     = []
 }
 
 variable "enforce_consumer_deletion" {
@@ -33,6 +36,7 @@ variable "encryption_type" {
 variable "kms_key_id" {
   description = "The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis."
   type        = string
+  default     = ""
 }
 
 variable "tags" {
