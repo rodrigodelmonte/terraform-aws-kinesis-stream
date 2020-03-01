@@ -13,9 +13,10 @@ Terraform 0.12. Module version to ~> v2.0.
 ## Usage
 
 ```hcl
-module "kinesis_stream_example" {
+module "kinesis-stream" {
 
-  source = "git::github.com/rodrigodelmonte/terraform-aws-kinesis-stream.git?ref=v1.0.0"
+  source  = "rodrigodelmonte/kinesis-stream/aws"
+  version = "1.0.1"
 
   name                      = "kinesis_stream_example"
   shard_count               = 1
@@ -42,13 +43,13 @@ module "kinesis_stream_example" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:-----:|
 |name|A name to identify the stream. This is unique to the AWS account and region the Stream is created in.|string||yes|
-|shard_count|The number of shards that the stream will use|number||yes|
-|retention_period|Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24.|number||yes|
-|shard_level_metrics|"A list of shard-level CloudWatch metrics which can be enabled for the stream.|list(string)||no|
+|shard_count|The number of shards that the stream will use|number|1|yes|
+|retention_period|Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24.|number|24|yes|
+|shard_level_metrics|"A list of shard-level CloudWatch metrics which can be enabled for the stream.|list(string)|[]|no|
 |enforce_consumer_deletion|A boolean that indicates all registered consumers should be deregistered from the stream so that the stream can be destroyed without error.|bool|false|no|
-|encryption_type|The encryption type to use. The only acceptable values are NONE or KMS.|string|NONE|no|
-|kms_key_id|The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis.|string||no|
-|tags|A mapping of tags to assign to the resource|map||no|
+|encryption_type|The encryption type to use. The only acceptable values are NONE or KMS.|string|"NONE"|no|
+|kms_key_id|The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis.|string|""|no|
+|tags|A mapping of tags to assign to the resource|map|{}|no|
 
 ## Outputs
 
