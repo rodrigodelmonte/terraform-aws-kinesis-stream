@@ -1,10 +1,10 @@
 output "kinesis_stream_name" {
-  description = "The unique Stream name "
+  description = "The unique Kinesis stream name"
   value       = aws_kinesis_stream.stream.name
 }
 
 output "kinesis_stream_shard_count" {
-  description = "The count of Shards for this Stream"
+  description = "The count of shards for this Kinesis stream"
   value       = aws_kinesis_stream.stream.shard_count
 }
 

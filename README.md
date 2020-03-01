@@ -3,6 +3,7 @@
 Terraform module which creates Kinesis Stream resources on AWS.
 
 This type of resources are supported:
+
 * [AWS Kinesis Stream](https://www.terraform.io/docs/providers/aws/r/kinesis_stream.html)
 
 ## Terraform version
@@ -48,6 +49,14 @@ module "kinesis_stream_example" {
 |encryption_type|The encryption type to use. The only acceptable values are NONE or KMS.|string|NONE|no|
 |kms_key_id|The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis.|string||no|
 |tags|A mapping of tags to assign to the resource|map||no|
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+|kinesis_stream_name|The unique Kinesis stream name|
+|kinesis_stream_shard_count|The count of shards for this Kinesis stream|
+|kinesis_stream_arn|The Amazon Resource Name (ARN) specifying the Kinesis stream|
 
 ## Tests
 
