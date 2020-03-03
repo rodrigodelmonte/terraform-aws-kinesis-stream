@@ -1,0 +1,29 @@
+name: 'Terraform GitHub Actions'
+on:
+  - pull_request
+
+jobs:
+  terraform:
+    name: 'Terraform'
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: 'Checkout'
+        uses: actions/checkout@master
+
+      - name: 'Terraform Format'
+        uses: clouddrove/github-actions@v2.0
+        with:
+          actions_subcommand: 'fmt'
+
+      - name: Configure AWS Credentials
+        uses: clouddrove/configure-aws-credentials@v1
+        with:
+         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         aws-region: eu-west-1
+
+      - name: 'Run Terratest'
+        uses: clouddrove/github-actions@master
+        with:
+          actions_subcommand: 'terratest'
