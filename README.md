@@ -58,6 +58,9 @@ module "kinesis-stream" {
 |kinesis_stream_name|The unique Kinesis stream name|
 |kinesis_stream_shard_count|The count of shards for this Kinesis stream|
 |kinesis_stream_arn|The Amazon Resource Name (ARN) specifying the Kinesis stream|
+|kinesis_stream_iam_policy_read_only_arn|The IAM Policy (ARN) read only of the Stream"|
+|kinesis_stream_iam_policy_write_arn|The IAM Policy (ARN) write only of the Stream"
+|kinesis_stream_iam_policy_admin_arn|The IAM Policy (ARN) admin of the Stream|
 
 ## Tests
 
