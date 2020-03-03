@@ -1,18 +1,21 @@
 package test
 
 import (
-	"strings"
 	"testing"
 
 	"github.com/gruntwork-io/terratest/modules/terraform"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestKinesisStream(t *testing.T) {
 	t.Parallel()
 
-	const expectedKinesisStreamName = "kinesis_stream_test"
+	const expectedKinesisStreamName = "test"
 	const expectedKinesisStreamShardCount = "1"
-	const expectedKinesisStreamArn = "stream/kinesis_stream_test"
+	const expectedKinesisStreamArn = "stream/test"
+	const expectedKinesisStreamIamPolicyReadOnlyArn = "policy/kinesis-stream-test-read-only"
+	const expectedKinesisStreamIamPolicyWriteOnlyArn = "policy/kinesis-stream-test-write-only"
+	const expectedKinesisStreamIamPolicyAdminArn = "policy/kinesis-stream-test-admin"
 
 	terraformOptions := &terraform.Options{
 		// Source path of Terraform directory.
@@ -25,7 +28,7 @@ func TestKinesisStream(t *testing.T) {
 			"enforce_consumer_deletion": false,
 			"encryption_type":           "KMS",
 			"kms_key_id":                "alias/aws/kinesis",
-			"tags":                      map[string]string{"Name": "kinesis_stream_test"},
+			"tags":                      map[string]string{"Name": "test"},
 		},
 	}
 
@@ -38,16 +41,32 @@ func TestKinesisStream(t *testing.T) {
 	kinesisStreamName := terraform.Output(t, terraformOptions, "kinesis_stream_name")
 	kinesisStreamShardCount := terraform.Output(t, terraformOptions, "kinesis_stream_shard_count")
 	kinesisStreamArn := terraform.Output(t, terraformOptions, "kinesis_stream_arn")
+	kinesisStreamIamPolicyReadOnlyArn := terraform.Output(t, terraformOptions, "kinesis_stream_iam_policy_read_only_arn")
+	kinesisStreamIamPolicyWriteOnlyArn := terraform.Output(t, terraformOptions, "kinesis_stream_iam_policy_write_only_arn")
+	kinesisStreamIamPolicyAdminArn := terraform.Output(t, terraformOptions, "kinesis_stream_iam_policy_admin_arn")
 
-	if expectedKinesisStreamName != kinesisStreamName {
-		t.Errorf("Expected %s got %s", expectedKinesisStreamName, kinesisStreamName)
-	}
+	t.Run("Assert equal kinesis stream name", func(t *testing.T) {
+		assert.Equal(t, expectedKinesisStreamName, kinesisStreamName)
+	})
 
-	if expectedKinesisStreamShardCount != kinesisStreamShardCount {
-		t.Errorf("Expected %s got %s", expectedKinesisStreamShardCount, kinesisStreamShardCount)
-	}
+	t.Run("Assert equal kinesis shard count", func(t *testing.T) {
+		assert.Equal(t, expectedKinesisStreamShardCount, kinesisStreamShardCount)
+	})
 
-	if strings.Contains(kinesisStreamArn, expectedKinesisStreamArn) != true {
-		t.Errorf("Expected %s got %s", expectedKinesisStreamArn, kinesisStreamArn)
-	}
+	t.Run("Assert contains kinesis stream arn", func(t *testing.T) {
+		assert.Contains(t, kinesisStreamArn, expectedKinesisStreamArn)
+	})
+
+	t.Run("Assert contains iam policy read only arn", func(t *testing.T) {
+		assert.Contains(t, kinesisStreamIamPolicyReadOnlyArn, expectedKinesisStreamIamPolicyReadOnlyArn)
+	})
+
+	t.Run("Assert contains iam policy write only arn", func(t *testing.T) {
+		assert.Contains(t, kinesisStreamIamPolicyWriteOnlyArn, expectedKinesisStreamIamPolicyWriteOnlyArn)
+	})
+
+	t.Run("Assert contains iam policy admin arn", func(t *testing.T) {
+		assert.Contains(t, kinesisStreamIamPolicyAdminArn, expectedKinesisStreamIamPolicyAdminArn)
+	})
+
 }

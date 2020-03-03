@@ -10,3 +10,68 @@ resource "aws_kinesis_stream" "stream" {
   tags                      = var.tags
 
 }
+
+resource "aws_iam_policy" "read-only" {
+  name        = format("kinesis-stream-%s-read-only", var.name)
+  path        = "/"
+  description = "Managed by Terraform"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = concat([
+      {
+        Effect = "Allow"
+        Action = [
+          "kinesis:DescribeLimits",
+          "kinesis:DescribeStream",
+          "kinesis:GetRecords",
+          "kinesis:GetShardIterator",
+          "kinesis:SubscribeToShard"
+        ]
+        Resource = [
+          aws_kinesis_stream.stream.arn
+        ]
+      }
+    ])
+  })
+}
+
+resource "aws_iam_policy" "write-only" {
+  name        = format("kinesis-stream-%s-write-only", var.name)
+  path        = "/"
+  description = "Managed by Terraform"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = concat([
+      {
+        Effect = "Allow"
+        Action = [
+          "kinesis:PutRecord",
+          "kinesis:PutRecords",
+        ]
+        Resource = [
+          aws_kinesis_stream.stream.arn
+        ]
+      }
+    ])
+  })
+}
+
+resource "aws_iam_policy" "admin" {
+  name        = format("kinesis-stream-%s-admin", var.name)
+  path        = "/"
+  description = "Managed by Terraform"
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = concat([
+      {
+        Effect = "Allow"
+        Action = [
+          "kinesis:*",
+        ]
+        Resource = [
+          aws_kinesis_stream.stream.arn
+        ]
+      }
+    ])
+  })
+}
