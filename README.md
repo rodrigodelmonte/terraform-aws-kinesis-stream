@@ -16,7 +16,7 @@ Terraform 0.12. Module version to ~> v2.0.
 module "kinesis-stream" {
 
   source  = "rodrigodelmonte/kinesis-stream/aws"
-  version = "1.0.2"
+  version = "2.0.0"
 
   name                      = "kinesis_stream_example"
   shard_count               = 1
