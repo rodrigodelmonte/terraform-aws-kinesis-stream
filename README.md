@@ -1,4 +1,4 @@
-![Terraform Module Tests](https://github.com/rodrigodelmonte/terraform-aws-kinesis-stream/workflows/Terraform%Modules%20Tests/badge.svg)
+![Terraform Module Tests](https://github.com/rodrigodelmonte/terraform-aws-kinesis-stream/workflows/Terraform%20Module%20Tests/badge.svg)
 
 # AWS Kinesis Stream Terraform module
 
