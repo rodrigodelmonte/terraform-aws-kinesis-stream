@@ -1,4 +1,4 @@
-resource "aws_kinesis_stream" "stream" {
+resource "aws_kinesis_stream" "this" {
 
   name                      = var.name
   shard_count               = var.shard_count
@@ -28,7 +28,7 @@ resource "aws_iam_policy" "read-only" {
           "kinesis:SubscribeToShard"
         ]
         Resource = [
-          aws_kinesis_stream.stream.arn
+          aws_kinesis_stream.this.arn
         ]
       }
     ])
@@ -49,7 +49,7 @@ resource "aws_iam_policy" "write-only" {
           "kinesis:PutRecords",
         ]
         Resource = [
-          aws_kinesis_stream.stream.arn
+          aws_kinesis_stream.this.arn
         ]
       }
     ])
@@ -69,7 +69,7 @@ resource "aws_iam_policy" "admin" {
           "kinesis:*",
         ]
         Resource = [
-          aws_kinesis_stream.stream.arn
+          aws_kinesis_stream.this.arn
         ]
       }
     ])

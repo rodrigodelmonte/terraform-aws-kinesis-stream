@@ -1,6 +1,10 @@
-name: 'Terraform GitHub Actions'
+name: 'Terraform Module Tests'
+
 on:
-  - pull_request
+  push:
+    branches:
+    - master
+  pull_request:
 
 jobs:
   terraform:
