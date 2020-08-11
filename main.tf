@@ -25,7 +25,8 @@ resource "aws_iam_policy" "read-only" {
           "kinesis:DescribeStream",
           "kinesis:GetRecords",
           "kinesis:GetShardIterator",
-          "kinesis:SubscribeToShard"
+          "kinesis:SubscribeToShard",
+          "kinesis:ListShards"
         ]
         Resource = [
           aws_kinesis_stream.this.arn
@@ -45,6 +46,7 @@ resource "aws_iam_policy" "write-only" {
       {
         Effect = "Allow"
         Action = [
+          "kinesis:DescribeStream",
           "kinesis:PutRecord",
           "kinesis:PutRecords",
         ]
