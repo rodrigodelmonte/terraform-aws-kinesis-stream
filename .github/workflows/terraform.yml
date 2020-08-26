@@ -15,17 +15,23 @@ jobs:
       - name: 'Checkout'
         uses: actions/checkout@master
 
-      - name: 'Terraform Format'
-        uses: clouddrove/github-actions@v2.0
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
         with:
-          actions_subcommand: 'fmt'
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_version: 0.12.28
 
-      - name: 'Configure AWS Credentials'
-        uses: clouddrove/configure-aws-credentials@v1
+      - name: Terraform fmt
+        id: fmt
+        run: terraform fmt
+        continue-on-error: true
+      
+      - name: Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         aws-region: eu-west-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-1
 
       - name: Install Go
         uses: actions/setup-go@v1
