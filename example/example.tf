@@ -15,5 +15,7 @@ module "kinesis_stream_example" {
   encryption_type           = var.encryption_type
   kms_key_id                = var.kms_key_id
   tags                      = var.tags
-
+  create_policy_read_only   = var.create_policy_read_only
+  create_policy_write_only  = var.create_policy_write_only
+  create_policy_admin       = var.create_policy_admin
 }

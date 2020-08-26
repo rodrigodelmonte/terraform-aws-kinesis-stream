@@ -15,15 +15,15 @@ output "kinesis_stream_arn" {
 
 output "kinesis_stream_iam_policy_read_only_arn" {
   description = "The IAM Policy (ARN) read only of the Stream"
-  value       = aws_iam_policy.read-only.arn
+  value       = concat(aws_iam_policy.read-only.*.arn, [""])[0]
 }
 
 output "kinesis_stream_iam_policy_write_only_arn" {
   description = "The IAM Policy (ARN) write only of the Stream"
-  value       = aws_iam_policy.write-only.arn
+  value       = concat(aws_iam_policy.read-only.*.arn, [""])[0]
 }
 
 output "kinesis_stream_iam_policy_admin_arn" {
   description = "The IAM Policy (ARN) admin of the Stream"
-  value       = aws_iam_policy.admin.arn
+  value       = concat(aws_iam_policy.read-only.*.arn, [""])[0]
 }

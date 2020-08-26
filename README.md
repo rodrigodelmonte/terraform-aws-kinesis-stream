@@ -51,6 +51,9 @@ module "kinesis-stream" {
 |enforce_consumer_deletion|A boolean that indicates all registered consumers should be deregistered from the stream so that the stream can be destroyed without error.|bool|false|no|
 |encryption_type|The encryption type to use. The only acceptable values are NONE or KMS.|string|"NONE"|no|
 |kms_key_id|The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis.|string|""|no|
+| create\_policy\_admin | Whether to create IAM Policy (ARN) admin of the Stream | `bool` | `true` | no |
+| create\_policy\_read\_only | Whether to create IAM Policy (ARN) read only of the Stream | `bool` | `true` | no |
+| create\_policy\_write\_only | Whether to create IAM Policy (ARN) write only of the Stream | `bool` | `true` | no |
 |tags|A mapping of tags to assign to the resource|map|{}|no|
 
 ## Outputs

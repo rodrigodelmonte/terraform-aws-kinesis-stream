@@ -43,3 +43,21 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource."
   type        = map
 }
+
+variable "create_policy_read_only" {
+  type        = bool
+  default     = true
+  description = "Whether to create IAM Policy (ARN) read only of the Stream"
+}
+
+variable "create_policy_write_only" {
+  type        = bool
+  default     = true
+  description = "Whether to create IAM Policy (ARN) write only of the Stream"
+}
+
+variable "create_policy_admin" {
+  type        = bool
+  default     = true
+  description = "Whether to create IAM Policy (ARN) admin of the Stream"
+}

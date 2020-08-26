@@ -12,6 +12,8 @@ resource "aws_kinesis_stream" "this" {
 }
 
 resource "aws_iam_policy" "read-only" {
+  count = var.create_policy_read_only == true ? 1 : 0
+
   name        = format("kinesis-stream-%s-read-only", var.name)
   path        = "/"
   description = "Managed by Terraform"
@@ -37,6 +39,8 @@ resource "aws_iam_policy" "read-only" {
 }
 
 resource "aws_iam_policy" "write-only" {
+  count = var.create_policy_write_only == true ? 1 : 0
+
   name        = format("kinesis-stream-%s-write-only", var.name)
   path        = "/"
   description = "Managed by Terraform"
@@ -59,6 +63,8 @@ resource "aws_iam_policy" "write-only" {
 }
 
 resource "aws_iam_policy" "admin" {
+  count = var.create_policy_admin == true ? 1 : 0
+
   name        = format("kinesis-stream-%s-admin", var.name)
   path        = "/"
   description = "Managed by Terraform"
