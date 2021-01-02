@@ -43,26 +43,29 @@ module "kinesis-stream" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:-----:|
-|name|A name to identify the stream. This is unique to the AWS account and region the Stream is created in.|string||yes|
-|shard_count|The number of shards that the stream will use|number|1|yes|
-|retention_period|Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24.|number|24|yes|
-|shard_level_metrics|"A list of shard-level CloudWatch metrics which can be enabled for the stream.|list(string)|[]|no|
-|enforce_consumer_deletion|A boolean that indicates all registered consumers should be deregistered from the stream so that the stream can be destroyed without error.|bool|false|no|
-|encryption_type|The encryption type to use. The only acceptable values are NONE or KMS.|string|"NONE"|no|
-|kms_key_id|The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis.|string|""|no|
-|tags|A mapping of tags to assign to the resource|map|{}|no|
+|------|-------------|------|---------|:--------:|
+| create\_policy\_admin | Whether to create IAM Policy (ARN) admin of the Stream | `bool` | `true` | no |
+| create\_policy\_read\_only | Whether to create IAM Policy (ARN) read only of the Stream | `bool` | `true` | no |
+| create\_policy\_write\_only | Whether to create IAM Policy (ARN) write only of the Stream | `bool` | `true` | no |
+| encryption\_type | The encryption type to use. The only acceptable values are NONE or KMS. | `string` | `"NONE"` | no |
+| enforce\_consumer\_deletion | A boolean that indicates all registered consumers should be deregistered from the stream so that the stream can be destroyed without error. | `bool` | `false` | no |
+| kms\_key\_id | The GUID for the customer-managed KMS key to use for encryption. You can also use a Kinesis-owned master key by specifying the alias alias/aws/kinesis. | `string` | `""` | no |
+| name | A name to identify the stream. This is unique to the AWS account and region the Stream is created in. | `string` | n/a | yes |
+| retention\_period | Length of time data records are accessible after they are added to the stream. The maximum value of a stream's retention period is 168 hours. Minimum value is 24. Default is 24. | `number` | `24` | no |
+| shard\_count | The number of shards that the stream will use | `number` | `1` | no |
+| shard\_level\_metrics | A list of shard-level CloudWatch metrics which can be enabled for the stream. | `list(string)` | `[]` | no |
+| tags | A mapping of tags to assign to the resource. | `map` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-|kinesis_stream_name|The unique Kinesis stream name|
-|kinesis_stream_shard_count|The count of shards for this Kinesis stream|
-|kinesis_stream_arn|The Amazon Resource Name (ARN) specifying the Kinesis stream|
-|kinesis_stream_iam_policy_read_only_arn|The IAM Policy (ARN) read only of the Stream|
-|kinesis_stream_iam_policy_write_arn|The IAM Policy (ARN) write only of the Stream|
-|kinesis_stream_iam_policy_admin_arn|The IAM Policy (ARN) admin of the Stream|
+| kinesis\_stream\_arn | The Amazon Resource Name (ARN) specifying the Stream |
+| kinesis\_stream\_iam\_policy\_admin\_arn | The IAM Policy (ARN) admin of the Stream |
+| kinesis\_stream\_iam\_policy\_read\_only\_arn | The IAM Policy (ARN) read only of the Stream |
+| kinesis\_stream\_iam\_policy\_write\_only\_arn | The IAM Policy (ARN) write only of the Stream |
+| kinesis\_stream\_name | The unique Kinesis stream name |
+| kinesis\_stream\_shard\_count | The count of shards for this Kinesis stream |
 
 ## Tests
 
@@ -78,7 +81,7 @@ go test -v -timeout 30m
 
 ## Authors
 
-Module is maintained by [Rodrigo Del Monte](https://github.com/rodrigodelmonte)
+Module is maintained by [Rodrigo Del Monte](https://github.com/rodrigodelmonte) and [Bruno R. Dias](https://github.com/brunordias)
 
 ## License
 
