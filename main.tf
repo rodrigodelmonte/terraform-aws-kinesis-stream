@@ -9,6 +9,11 @@ resource "aws_kinesis_stream" "this" {
   kms_key_id                = var.kms_key_id
   tags                      = var.tags
 
+  // Ignore future changes on the desired count value
+  lifecycle {
+    ignore_changes = [shard_count]
+  }
+
 }
 
 resource "aws_iam_policy" "read-only" {
