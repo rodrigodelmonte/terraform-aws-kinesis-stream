@@ -46,11 +46,11 @@ func TestKinesisStream(t *testing.T) {
 	kinesisStreamIamPolicyAdminArn := terraform.Output(t, terraformOptions, "kinesis_stream_iam_policy_admin_arn")
 
 	t.Run("Assert equal kinesis stream name", func(t *testing.T) {
-		assert.Equal(t, expectedKinesisStreamName, kinesisStreamName)
+		assert.Contains(t, expectedKinesisStreamName, kinesisStreamName)
 	})
 
 	t.Run("Assert equal kinesis shard count", func(t *testing.T) {
-		assert.Equal(t, expectedKinesisStreamShardCount, kinesisStreamShardCount)
+		assert.Contains(t, expectedKinesisStreamShardCount, kinesisStreamShardCount)
 	})
 
 	t.Run("Assert contains kinesis stream arn", func(t *testing.T) {
