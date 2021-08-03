@@ -1,3 +1,5 @@
+// +build terraform_state_test
+
 package test
 
 import (
@@ -8,7 +10,6 @@ import (
 )
 
 func TestKinesisStream(t *testing.T) {
-	t.Parallel()
 
 	const expectedKinesisStreamName = "test"
 	const expectedKinesisStreamShardCount = "1"
